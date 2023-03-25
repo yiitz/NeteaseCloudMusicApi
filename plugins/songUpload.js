@@ -1,4 +1,4 @@
-const axios = require('axios')
+const { default: axios } = require('axios')
 module.exports = async (query, request) => {
   let ext = 'mp3'
   if (query.songFile.name.indexOf('flac') > -1) {
@@ -6,8 +6,8 @@ module.exports = async (query, request) => {
   }
   const filename = query.songFile.name
     .replace('.' + ext, '')
-    .replaceAll(' ', '_')
-    .replaceAll('.', '_')
+    .replace(/\s/g, '')
+    .replace(/\./g, '_')
   //   获取key和token
   const tokenRes = await request(
     'POST',
